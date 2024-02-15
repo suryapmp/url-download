@@ -1,0 +1,26 @@
+import requests
+import os
+
+def download_mp4(url, save_path):
+    try:
+        # Send an HTTP request to the URL
+        response = requests.get(url, stream=True)
+        
+        # Check if the request was successful (status code 200)
+        if response.status_code == 200:
+            # Open the file in binary write mode and write the content
+            with open(save_path, 'wb') as f:
+                # Iterate over the response content in chunks and write to file
+                for chunk in response.iter_content(chunk_size=1024):
+                    f.write(chunk)
+            print("Download successful!")
+        else:
+            print("Failed to download file. Status code: {}".format(response.status_code))
+    except Exception as e:
+        print("An error occurred:", e)
+
+# Example usage:
+url = "past URL"
+save_path = "answer-1561108279_13163524.mp4"
+
+download_mp4(url, save_path)
